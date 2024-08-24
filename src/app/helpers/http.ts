@@ -11,7 +11,7 @@ const http = (token?: string) => {
   }
   return axios.create({
     headers,
-    baseURL: 'http://localhost:3001',
+    baseURL: 'https://tokokupon-dev-backend.vercel.app/',
   });
 };
 

@@ -24,7 +24,6 @@ export async function POST(request: NextRequest) {
       } else if (error.request) {
         console.log(`No response received from ${url}:`, error.request);
       }
-      console.log(`Error message from ${url}:`, error);
       return { success: false };
     }
   };
