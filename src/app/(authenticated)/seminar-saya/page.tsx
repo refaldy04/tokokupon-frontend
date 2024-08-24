@@ -3,12 +3,15 @@
 import SimpleSnackbar from '@/components/Snackbar';
 import { Seminar } from '@/interface/seminar';
 import { Button } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const SeminarSaya = () => {
   const [seminars, setSeminars] = useState<Seminar[]>([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+
+  const router = useRouter();
 
   const getSeminar = async () => {
     const res = await fetch('/api/seminar/created', {
@@ -61,14 +64,24 @@ const SeminarSaya = () => {
                   <span>{seminar.schedule}</span>
                   <span>{seminar.maxParticipants}</span>
                 </div>
-                <Button
-                  variant="outlined"
-                  color="error"
-                  size="small"
-                  onClick={() => handleDelete(seminar.id)}
-                >
-                  Delete
-                </Button>
+                <div className="flex gap-2 items-center">
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    size="small"
+                    onClick={() => handleDelete(seminar.id)}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    size="small"
+                    onClick={() => router.push(`/seminar-saya/${seminar.id}`)}
+                  >
+                    Edit
+                  </Button>
+                </div>
               </div>
             </div>
           ))
