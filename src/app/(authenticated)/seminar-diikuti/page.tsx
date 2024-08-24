@@ -26,6 +26,9 @@ const SeminarDiikuti = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-4 py-5 px-3">
+      <div>
+        <h1 className="text-3xl">Seminar Diikuti</h1>
+      </div>
       {seminars.length && typeof seminars === 'object'
         ? seminars.map((seminar) => (
             <div
