@@ -4,12 +4,15 @@ import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import SimpleSnackbar from '@/components/Snackbar';
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState('');
 
   const router = useRouter();
 
@@ -34,7 +37,9 @@ const Login = () => {
       });
 
       if (!res.ok) {
-        throw new Error('Failed to create seminar');
+        setMessage('Invalid Credentials');
+        setOpen(true);
+        return;
       }
 
       const result = await res.json();
@@ -85,6 +90,11 @@ const Login = () => {
           </Link>
         </p>
       </form>
+      <SimpleSnackbar
+        closeModal={() => setOpen(false)}
+        open={open}
+        message={message}
+      />
     </div>
   );
 };

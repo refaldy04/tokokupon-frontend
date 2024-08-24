@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import SimpleSnackbar from '@/components/Snackbar';
@@ -45,16 +44,17 @@ const Register = () => {
       });
 
       if (!res.ok) {
-        throw new Error('Failed to create seminar');
+        setMessage('Gagal Register');
+        setOpen(true);
+        return;
       }
 
       const result = await res.json();
-      console.log({ 'ini result': result });
       setMessage('Berhasil Register');
       setOpen(true);
       // Lakukan sesuatu setelah seminar berhasil dibuat, misalnya redirect atau menampilkan pesan sukses
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error test:', error);
       // Tampilkan pesan error kepada pengguna
     }
   };
