@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const todayDate = new Date().toISOString().slice(0, 10);
@@ -7,9 +8,11 @@ const todayDate = new Date().toISOString().slice(0, 10);
 const BuatSeminar = () => {
   const [formData, setFormData] = useState({
     title: '',
-    max_participant: '',
-    date: todayDate,
+    maxParticipants: '',
+    schedule: todayDate,
   });
+
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,11 +39,9 @@ const BuatSeminar = () => {
       }
 
       const result = await res.json();
-      console.log(result);
-      // Lakukan sesuatu setelah seminar berhasil dibuat, misalnya redirect atau menampilkan pesan sukses
+      router.push('/');
     } catch (error) {
       console.error('Error:', error);
-      // Tampilkan pesan error kepada pengguna
     }
   };
 
@@ -48,7 +49,6 @@ const BuatSeminar = () => {
     <div className="w-full flex justify-center items-center py-5">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3 text-black">
         <input
-          id="title"
           name="title"
           required
           placeholder="Judul"
@@ -57,21 +57,19 @@ const BuatSeminar = () => {
           className="border rounded-md border-black px-3 py-1 w-full shadow-custom-inset"
         />
         <input
-          id="max_participant"
-          name="max_participant"
+          name="maxParticipants"
           type="text"
           required
           placeholder="Maksimal Partisipan"
-          value={formData.max_participant}
+          value={formData.maxParticipants}
           onChange={handleChange}
           className="border rounded-md border-black px-3 py-1 w-full shadow-custom-inset"
         />
         <input
-          id="date"
-          name="date"
+          name="schedule"
           type="date"
           required
-          value={formData.date}
+          value={formData.schedule}
           onChange={handleChange}
           className="border rounded-md border-black px-3 py-1 w-full shadow-custom-inset"
         />
