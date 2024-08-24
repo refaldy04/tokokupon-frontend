@@ -10,20 +10,39 @@ const SeminarSaya = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
 
+  const getSeminar = async () => {
+    const res = await fetch('/api/seminar/created', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await res.json();
+    setSeminars(data.data);
+  };
+
   useEffect(() => {
-    const getSeminar = async () => {
-      const res = await fetch('/api/seminar/created', {
-        method: 'GET',
+    getSeminar();
+  }, []);
+
+  const handleDelete = async (idSeminar: number) => {
+    try {
+      await fetch('/api/seminar/created', {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ idSeminar }),
       });
-      const data = await res.json();
-      setSeminars(data.data);
-    };
 
-    getSeminar();
-  }, []);
+      setMessage('Berhasil dihapus');
+      setOpen(true);
+      getSeminar();
+    } catch (error) {
+      setMessage('Gagal dihapus');
+      setOpen(true);
+    }
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-4 py-5 px-3">
@@ -46,7 +65,7 @@ const SeminarSaya = () => {
                   variant="outlined"
                   color="error"
                   size="small"
-                  // onClick={() => handleJoin(seminar.id)}
+                  onClick={() => handleDelete(seminar.id)}
                 >
                   Delete
                 </Button>
