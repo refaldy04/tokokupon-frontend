@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     }
   };
 
-  let result = await fetchData('/seminar/joined');
+  let result = await fetchData('/seminar/created');
 
   if (result.success) {
     let responseData;
